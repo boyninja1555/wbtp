@@ -1,6 +1,11 @@
 #pragma once
 
+#include "wbtp/winshitexport.h"
 #include <stdint.h>
+
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 #define WBTP_PATH_MAX 512
 #define WBTP_PARAMS_MAX 512
@@ -60,32 +65,32 @@ typedef struct
 /**
  * Quickly initializes a request object. Due to the fact that WBTP does not allocate or free any memory, payload is referenced instead of copied!
  */
-WbtpRequest wbtp_request(WbtpRequestType type, const char *path, uint32_t payload_size, char *payload);
+WBTP_API WbtpRequest wbtp_request(WbtpRequestType type, const char *path, uint32_t payload_size, char *payload);
 
 /**
  * Duplicates and sets the path of a request object.
  */
-void wbtp_request_path(WbtpRequest *request, const char *path);
+WBTP_API void wbtp_request_path(WbtpRequest *request, const char *path);
 
 /**
  * Sets the payload of a request object. Due to the fact that WBTP does not allocate or free any memory, payload is referenced instead of copied!
  */
-void wbtp_request_payload(WbtpRequest *request, uint32_t payload_size, char *payload);
+WBTP_API void wbtp_request_payload(WbtpRequest *request, uint32_t payload_size, char *payload);
 
 /**
  * Sets the payload of a request object to a string automatically. Due to the fact that WBTP does not allocate or free any memory, payload is referenced instead of copied!
  */
-void wbtp_request_payload_str(WbtpRequest *request, char *str);
+WBTP_API void wbtp_request_payload_str(WbtpRequest *request, char *str);
 
 /**
  * Serializes an immutable request object into a byte buffer. We recommend the buffer to be sized similar to the source buffer's size for some breathing room! This is due to the fact that WBTP does not allocate or free any heap memory.
  */
-void wbtp_request_serialize(const WbtpRequest request, char *buf);
+WBTP_API void wbtp_request_serialize(const WbtpRequest request, char *buf);
 
 /**
  * Deserializes an immutable byte buffer into a preset request object. We recommend the default payload to be sized similar to the source buffer's size for some breathing room! This is due to the fact that WBTP does not allocate or free any memory.
  */
-void wbtp_request_deserialize(WbtpRequest *request, const char *buf);
+WBTP_API void wbtp_request_deserialize(WbtpRequest *request, const char *buf);
 
 /**
  * WBTP response types.
@@ -137,24 +142,28 @@ typedef struct
 /**
  * Quickly initializes a response object. Due to the fact that WBTP does not allocate or free any memory, payload is referenced instead of copied!
  */
-WbtpResponse wbtp_response(WbtpResponseType type, uint32_t payload_size, char *payload);
+WBTP_API WbtpResponse wbtp_response(WbtpResponseType type, uint32_t payload_size, char *payload);
 
 /**
  * Sets the payload of a response object. Due to the fact that WBTP does not allocate or free any memory, payload is referenced instead of copied!
  */
-void wbtp_response_payload(WbtpResponse *response, uint32_t payload_size, char *payload);
+WBTP_API void wbtp_response_payload(WbtpResponse *response, uint32_t payload_size, char *payload);
 
 /**
  * Sets the payload of a response object to a string automatically. Due to the fact that WBTP does not allocate or free any memory, payload is referenced instead of copied!
  */
-void wbtp_response_payload_str(WbtpResponse *response, char *str);
+WBTP_API void wbtp_response_payload_str(WbtpResponse *response, char *str);
 
 /**
  * Serializes an immutable response object into a byte buffer. We recommend the buffer to be sized similar to the source buffer's size for some breathing room! This is due to the fact that WBTP does not allocate or free any heap memory.
  */
-void wbtp_response_serialize(const WbtpResponse response, char *buf);
+WBTP_API void wbtp_response_serialize(const WbtpResponse response, char *buf);
 
 /**
  * Deserializes an immutable byte buffer into a preset response object. We recommend the default payload to be sized similar to the source buffer's size for some breathing room! This is due to the fact that WBTP does not allocate or free any memory.
  */
-void wbtp_response_deserialize(WbtpResponse *response, const char *buf);
+WBTP_API void wbtp_response_deserialize(WbtpResponse *response, const char *buf);
+
+#ifdef __cplusplus
+}
+#endif
