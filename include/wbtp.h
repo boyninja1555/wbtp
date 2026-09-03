@@ -33,6 +33,9 @@ extern "C"
         WBTP_PUT = 0x02,
     } WbtpRequestType;
 
+    /**
+     * Returns stringified form of request type.
+     */
     WBTP_API const char *wbtp_request_type_string(WbtpRequestType type);
 
     /**
@@ -103,7 +106,7 @@ extern "C"
     /**
      * Serializes request object into a readable, stringified form. String must be large enough to support the output, and string size does not include the null terminator. This is due to the fact that WBTP does not allocate or free any memory.
      *
-     * Returns whether the string was able to be written to (e.g. whether it's too small). Failed attempts do not overwrite anything!
+     * Returns whether the string was able to be written to (e.g. whether it's too small). Failed attempts may overwrite the string!
      */
     WBTP_API bool wbtp_request_string(const WbtpRequest request, char *str, uint32_t str_size);
 
@@ -128,6 +131,9 @@ extern "C"
         WBTP_FAILURE = 0x02,
     } WbtpResponseType;
 
+    /**
+     * Returns stringified form of response type.
+     */
     WBTP_API const char *wbtp_response_type_string(WbtpResponseType type);
 
     /**
@@ -188,7 +194,7 @@ extern "C"
     /**
      * Serializes response object into a readable, stringified form. String must be large enough to support the output, and string size does not include the null terminator. This is due to the fact that WBTP does not allocate or free any memory.
      *
-     * Returns whether the string was able to be written to (e.g. whether it's too small). Failed attempts do not overwrite anything!
+     * Returns whether the string was able to be written to (e.g. whether it's too small). Failed attempts may overwrite the string!
      */
     WBTP_API bool wbtp_response_string(const WbtpResponse response, char *str, uint32_t str_size);
 
