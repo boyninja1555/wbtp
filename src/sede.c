@@ -70,7 +70,7 @@ uint32_t wbtp_request_serialize(const WbtpRequest request, char *buf, uint32_t b
         i += request.payload_size;
     }
 
-    overwrite_size(i, buf, buf_size, i - sizeof(uint32_t));
+    overwrite_size(0, buf, buf_size, i - sizeof(uint32_t));
     return i;
 }
 
@@ -149,7 +149,7 @@ uint32_t wbtp_response_serialize(const WbtpResponse response, char *buf, uint32_
         i += response.payload_size;
     }
 
-    overwrite_size(i, buf, buf_size, i - sizeof(uint32_t));
+    overwrite_size(0, buf, buf_size, i - sizeof(uint32_t));
     return i;
 }
 
