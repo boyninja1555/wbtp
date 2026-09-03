@@ -19,9 +19,18 @@ Each release package provides C17-focused header files along with shared-object 
 
 ### WBTP Spec
 
+All numerical values are big-endian (aka network byte order).
+
+**Data Types**
+|Label|Description|
+|---|---|
+|`byte`|Unsigned 8-bit integer|
+|`u32`|Unsigned 32-bit/4-byte integer|
+|`string`|UTF-8 encoded byte(s)|
+
 A typical **WBTP** request is structured something like this:
 ```
-[packet size : u32]                                    ; Size of everything that follows (in bytes)
+[packet size : u32]                                    ; Size of everything that follows (in bytes, not including itself)
 [type : byte]                                          ; Type of request
 [path size : u32][...path : string, max size 512]      ; Size of request path, followed by request path
 [params size : u32][...params : string, max size 512]  ; Size of request params, followed by request params
