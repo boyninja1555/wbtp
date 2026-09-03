@@ -2,6 +2,7 @@
 
 #include "wbtp/winshit.h"
 #include <stdint.h>
+#include <stdbool.h>
 
 #ifdef __cplusplus
 extern "C"
@@ -31,6 +32,8 @@ extern "C"
          */
         WBTP_PUT = 0x02,
     } WbtpRequestType;
+
+    WBTP_API const char *wbtp_request_type_string(WbtpRequestType type);
 
     /**
      * Unserialized WBTP request object.
@@ -98,6 +101,13 @@ extern "C"
     WBTP_API uint32_t wbtp_request_deserialize(WbtpRequest *request, const char *buf, uint32_t buf_size);
 
     /**
+     * Serializes request object into a readable, stringified form. String must be large enough to support the output, and string size does not include the null terminator. This is due to the fact that WBTP does not allocate or free any memory.
+     *
+     * Returns whether the string was able to be written to (e.g. whether it's too small). Failed attempts do not overwrite anything!
+     */
+    WBTP_API bool wbtp_request_string(const WbtpRequest request, char *str, uint32_t str_size);
+
+    /**
      * WBTP response types.
      */
     typedef enum
@@ -117,6 +127,8 @@ extern "C"
          */
         WBTP_FAILURE = 0x02,
     } WbtpResponseType;
+
+    WBTP_API const char *wbtp_response_type_string(WbtpResponseType type);
 
     /**
      * Unserialized WBTP response object.
@@ -172,6 +184,13 @@ extern "C"
      * Returns how many bytes were read. Will only ever return 0 if deserialization failed!
      */
     WBTP_API uint32_t wbtp_response_deserialize(WbtpResponse *response, const char *buf, uint32_t buf_size);
+
+    /**
+     * Serializes response object into a readable, stringified form. String must be large enough to support the output, and string size does not include the null terminator. This is due to the fact that WBTP does not allocate or free any memory.
+     *
+     * Returns whether the string was able to be written to (e.g. whether it's too small). Failed attempts do not overwrite anything!
+     */
+    WBTP_API bool wbtp_response_string(const WbtpResponse response, char *str, uint32_t str_size);
 
 #ifdef __cplusplus
 }
