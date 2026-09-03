@@ -1,4 +1,4 @@
 #pragma once
 
-#include "wbtp/winshitexport.h"
+#include "wbtp/winshit.h"
 #include "wbtp.h"
