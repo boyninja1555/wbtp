@@ -3,27 +3,32 @@
 
 void write_size(uint32_t *i, char *buf, uint32_t size)
 {
-    memcpy(buf + (*i += sizeof(size)), &size, sizeof(size));
+    memcpy(buf + *i, &size, sizeof(size));
+    *i += sizeof(size);
 }
 
 void write_str(uint32_t *i, char *buf, const char *str)
 {
     uint32_t str_size = strlen(str);
     write_size(i, buf, str_size);
-    memcpy(buf + (*i += str_size), str, str_size);
+    memcpy(buf + *i, str, str_size);
+    *i += str_size;
 }
 
 uint32_t read_size(uint32_t *i, const char *buf)
 {
     uint32_t size;
-    memcpy(&size, buf + (*i += sizeof(size)), sizeof(size));
+    memcpy(&size, buf + *i, sizeof(size));
+    *i += sizeof(size);
     return size;
 }
 
 void read_str(uint32_t *i, const char *buf, char *strout)
 {
     uint32_t str_size = read_size(i, buf);
-    memcpy(strout, buf + (*i += str_size), str_size);
+    memcpy(strout, buf + *i, str_size);
+    strout[str_size] = '\0';
+    *i += str_size;
 }
 
 // Public
@@ -33,7 +38,7 @@ void wbtp_request_serialize(const WbtpRequest request, char *buf)
     uint32_t i = 0;
 
     // Header
-    buf[i++] = (unsigned char)request.type;
+    buf[i++] = (uint8_t)request.type;
     write_str(&i, buf, request.path);
     write_str(&i, buf, request.params);
 
@@ -47,7 +52,7 @@ void wbtp_request_deserialize(WbtpRequest *request, const char *buf)
     uint32_t i = 0;
 
     // Header
-    request->type = read_size(&i, buf);
+    request->type = (WbtpRequestType)(uint8_t)buf[i++];
     read_str(&i, buf, request->path);
     read_str(&i, buf, request->params);
 
@@ -61,7 +66,7 @@ void wbtp_response_serialize(const WbtpResponse response, char *buf)
     uint32_t i = 0;
 
     // Header
-    buf[i++] = (unsigned char)response.type;
+    buf[i++] = (uint8_t)response.type;
     write_str(&i, buf, response.params);
 
     // Payload
@@ -74,7 +79,7 @@ void wbtp_response_deserialize(WbtpResponse *response, const char *buf)
     uint32_t i = 0;
 
     // Header
-    response->type = read_size(&i, buf);
+    response->type = (WbtpResponseType)(uint8_t)buf[i++];
     read_str(&i, buf, response->params);
 
     // Payload
