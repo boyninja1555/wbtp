@@ -21,19 +21,21 @@ Each release package provides C17-focused header files along with shared-object 
 
 A typical **WBTP** request is structured something like this:
 ```
-[type : byte]
-[path size : u32][...path : string, max size 512]
-[params size : u32][...params : string, max size 512]
-[payload size : u32][...payload : bytes, no max size]
+[packet size : u32]                                    ; Size of everything that follows (in bytes)
+[type : byte]                                          ; Type of request
+[path size : u32][...path : string, max size 512]      ; Size of request path, followed by request path
+[params size : u32][...params : string, max size 512]  ; Size of request params, followed by request params
+[payload size : u32][...payload : bytes, no max size]  ; Size of payload, followed by payload
 ```
 
 > Note that params has a standardized value template! This is defined somewhere in the header file located at [include/wbtp.h](./include/wbtp.h) or inside a release ZIP/TAR.
 
 ...and a typical **WBTP** response is structured something like this:
 ```
-[type : byte]
-[params size : u32][...params : string, max size 512]
-[payload size : u32][...payload : bytes, no max size]
+[packet size : u32]                                    ; Size of everything that follows (in bytes)
+[type : byte]                                          ; Type of response
+[params size : u32][...params : string, max size 512]  ; Size of response params, followed by response params
+[payload size : u32][...payload : bytes, no max size]  ; Size of payload, followed by payload
 ```
 
 > Note that params has a standardized value template! This is defined somewhere in the header file located at [include/wbtp.h](./include/wbtp.h) or inside a release ZIP/TAR.
