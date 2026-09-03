@@ -44,7 +44,11 @@ void wbtp_request_serialize(const WbtpRequest request, char *buf)
 
     // Payload
     write_size(&i, buf, request.payload_size);
-    memcpy(buf + (i += request.payload_size), request.payload, request.payload_size);
+    if (request.payload_size > 0)
+    {
+        memcpy(buf + i, request.payload, request.payload_size);
+        i += request.payload_size;
+    }
 }
 
 void wbtp_request_deserialize(WbtpRequest *request, const char *buf)
@@ -58,7 +62,11 @@ void wbtp_request_deserialize(WbtpRequest *request, const char *buf)
 
     // Payload
     request->payload_size = read_size(&i, buf);
-    memcpy(request->payload, buf + (i += request->payload_size), request->payload_size);
+    if (request->payload_size > 0)
+    {
+        memcpy(request->payload, buf + i, request->payload_size);
+        i += request->payload_size;
+    }
 }
 
 void wbtp_response_serialize(const WbtpResponse response, char *buf)
@@ -71,7 +79,11 @@ void wbtp_response_serialize(const WbtpResponse response, char *buf)
 
     // Payload
     write_size(&i, buf, response.payload_size);
-    memcpy(buf + (i += response.payload_size), response.payload, response.payload_size);
+    if (response.payload_size > 0)
+    {
+        memcpy(buf + i, response.payload, response.payload_size);
+        i += response.payload_size;
+    }
 }
 
 void wbtp_response_deserialize(WbtpResponse *response, const char *buf)
@@ -84,5 +96,9 @@ void wbtp_response_deserialize(WbtpResponse *response, const char *buf)
 
     // Payload
     response->payload_size = read_size(&i, buf);
-    memcpy(response->payload, buf + (i += response->payload_size), response->payload_size);
+    if (response->payload_size > 0)
+    {
+        memcpy(response->payload, buf + i, response->payload_size);
+        i += response->payload_size;
+    }
 }
