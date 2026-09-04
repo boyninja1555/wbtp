@@ -1,0 +1,3 @@
+Hey! Most bindings here are remade from-scratch to mitigate the pains of loading native libraries.
+
+But if possible, could you help rewrite some of them as native bindings? We like speed!

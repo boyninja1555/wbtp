@@ -1,2 +1,5 @@
 # These bindings are in the works, since Python sucks :(
 python/
+
+# Did you know super-over-packed binary-framed protocols don't port to TypeScript that well? :D
+javascript/
