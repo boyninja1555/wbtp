@@ -126,7 +126,7 @@ extern "C"
         WBTP_SUCCESS = 0x01,
 
         /**
-         * Signifies a failed request. A string error may be provided somewhere inside params, with a template value of "error=%s". This error behavior must be handled if possible. The payload is not ingored.
+         * Signifies a failed request. A string error may be provided somewhere inside params, with a template value of "error=%s". This error behavior must be handled if possible. The payload is not ignored.
          */
         WBTP_FAILURE = 0x02,
     } WbtpResponseType;
